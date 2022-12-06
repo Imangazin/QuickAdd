@@ -8,4 +8,19 @@
 
 //Support Email shown to users in the tool
 //$supportEmail = "email@yourcompany.com";
+
+//app and user credentials from Brightspace
+/*$config = array(
+    'libpath'    => 'lib',
+
+    'host'       => '',
+    'port'       => ,
+    'scheme'     => '',
+
+    'appId'      => '',
+    'appKey'     => '',
+    'userId'     => '',
+    'userKey'    => '',
+
+    'LP_Version' => '');*/
 ?>
