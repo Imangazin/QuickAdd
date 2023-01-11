@@ -61,12 +61,23 @@ function doValenceRequest($verb, $route, $postFields = array()){
     return(array('Code'=>$httpCode, 'response'=>json_decode($response)));
 }
 
+//triming @ and domain from username
+function trimUserName($username){
+    $at = strpos($username, '@');
+    if ($at != false){
+        return substr($username, 0, $at);
+    }
+    else 
+        return $username;
+}
+
 //Check the key is correct / wrap everything with LTI credentials
 if(($lti_auth['key'] == $toolKey) && ($roleId == "Instructor" || $roleId == "Administrator")){
     //checking if we got POST data
     if (isset($_POST['username']) && isset($_POST['userrole'])) {
+        $userName = trimUserName($_POST['username']);
         //getting UserId
-        $userData = doValenceRequest('GET', '/d2l/api/lp/' . $config['LP_Version'] . '/users/?userName=' . $_POST['username']);
+        $userData = doValenceRequest('GET', '/d2l/api/lp/' . $config['LP_Version'] . '/users/?userName=' . $userName);
         //enrolling user into course offerring
         if ($userData['Code']==200){
             $userId = $userData['response']->UserId;
