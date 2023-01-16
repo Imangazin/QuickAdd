@@ -64,7 +64,7 @@ function doValenceRequest($verb, $route, $postFields = array()){
 //triming @ and domain from username
 function trimUserName($username){
     $at = strpos($username, '@');
-    if ($at != false){
+    if (substr($username,$at) =='@brocku.ca'){
         return substr($username, 0, $at);
     }
     else 
