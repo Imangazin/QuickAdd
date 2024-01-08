@@ -4,6 +4,10 @@ require_once 'lib/D2LAppContextFactory.php';
 
 //read LTI tool Key and OrgUnitID passed by session from main page index.php
 
+//Detects if session_id is empty, then looks to see if one has been stashed in a hidden form item to allow cross domain requests
+$a = session_id();
+if(empty($a) && !empty($_POST["session_id"])) session_id($_POST["session_id"]); 
+
 session_start();
 $toolKey = $_SESSION['toolKey'];
 $orgUnitId =$_SESSION['OrgUnitId'];
