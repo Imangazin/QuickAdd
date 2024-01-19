@@ -37,7 +37,7 @@ session_write_close();
 //Check the key is correct
 if($lti_auth['key'] == $context->info['oauth_consumer_key']){
         //bring quickAdd HTML page
-        readfile("adduser.html");
+        echo sprintf(file_get_contents("adduser.html"),session_id()); //Adds session_id() to a hidden form element to allow cross domain requests
 }
 else{
         echo 'LTI credentials not valid. Please refresh the page and try again. If you continue to receive this message please contact <a href="mailto:'.$supportEmail.'?Subject=Quick Add Widget Issue" target="_top">'.$supportEmail.'</a>';
