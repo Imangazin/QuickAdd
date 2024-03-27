@@ -50,7 +50,7 @@
   </form>
   <div id="quickAddResponse" tabindex="-1"></div>
 <div>
-<script type="text/javascript" src="quickadd.js"></script>
+<script type="text/javascript" src="src/quickadd.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </body>
 </html>

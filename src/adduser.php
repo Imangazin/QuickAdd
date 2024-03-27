@@ -33,8 +33,9 @@ preg_match('/_(\d+)/', $_SESSION['_basic_lti_context']['user_id'], $matches);
 $ltiUserId = (bool) $matches ? $matches[1] : -1;
 $orgUnitId = $_SESSION['_basic_lti_context']['context_id'];
 
-if(isAllowedToAdd($ltiUserId)) echo "true"; else "false";
+if(isAllowedToAdd($ltiUserId)) echo "allowed"; else "not allowed";
 echo $_SESSION['_basic_lti_context']['oauth_consumer_key'];
+echo $ltiUserId;
 
 //Check the key is correct / wrap everything with LTI credentials
 if(($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $toolKey) && isAllowedToAdd($ltiUserId)){
