@@ -37,10 +37,10 @@ $orgUnitId = $_SESSION['_basic_lti_context']['context_id'];
 if(($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key']) && isAllowedToAdd($ltiUserId, $orgUnitId)){
     if (isset($_POST['username']) && isset($_POST['userrole'])) {
         $userName = trimUserName($_POST['username']);
-        echo $userName;
-        // //getting UserId
-        // $userData = doValenceRequest('GET', '/d2l/api/lp/' . $config['LP_Version'] . '/users/?userName=' . $userName);
-        // $userStatus = $userData['response']->Activation->IsActive;
+        //getting UserId
+        $userData = doValenceRequest('GET', '/d2l/api/lp/' . $config['LP_Version'] . '/users/?userName=' . $userName);
+        $userStatus = $userData['response']->Activation->IsActive;
+        echo $userStatus;
         // //enrolling user into course offerring
         // if ($userData['Code']==200){
         //     $userId = $userData['response']->UserId;
