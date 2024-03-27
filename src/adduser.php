@@ -17,7 +17,7 @@ function trimUserName($username){
     }
 }
 
-function isAllowedToAdd($userId){
+function isAllowedToAdd($userId, $orgUnitId){
     global $config, $roles;
     $isAllowed = doValenceRequest('GET','/d2l/api/lp/' . $config['LP_Version'] . '/enrollments/orgUnits/'.$orgUnitId.'/users/'.$userId);
     echo '/d2l/api/lp/' . $config['LP_Version'] . '/enrollments/orgUnits/'.$orgUnitId.'/users/'.$userId;
@@ -34,12 +34,12 @@ preg_match('/_(\d+)/', $_SESSION['_basic_lti_context']['user_id'], $matches);
 $ltiUserId = (bool) $matches ? $matches[1] : -1;
 $orgUnitId = $_SESSION['_basic_lti_context']['context_id'];
 
-if(isAllowedToAdd($ltiUserId)) echo "allowed"; else echo "not allowed";
+if(isAllowedToAdd($ltiUserId, $orgUnitId)) echo "allowed"; else echo "not allowed";
 echo $_SESSION['_basic_lti_context']['oauth_consumer_key'];
 echo $ltiUserId;
 
 //Check the key is correct / wrap everything with LTI credentials
-if(($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $toolKey) && isAllowedToAdd($ltiUserId)){
+if(($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $toolKey) && isAllowedToAdd($ltiUserId, $orgUnitId)){
     if (isset($_POST['username']) && isset($_POST['userrole'])) {
         $userName = trimUserName($_POST['username']);
         //getting UserId
