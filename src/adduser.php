@@ -66,7 +66,7 @@ if(($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key']) &
             }
         }
         if ($userStatus){
-            $message = str_replace("OrgUnitId",str($orgUnitId),$successMessage);
+            $message = str_replace("OrgUnitId",$orgUnitId,$successMessage);
             echo json_encode(array("success"=> true, "message"=>$message));
         }
         else{
