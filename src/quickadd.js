@@ -10,6 +10,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Serialize form data
         const formData = new FormData(this);
 
+        //spinner
+        feedbackdiv.innerHTML = "";
+        feedbackdiv.className = "";
+        document.getElementById("quickAddSpinner").className = "spinner-border";
+        document.getElementById("quickAddSpinner").innerHTML = '<span class="visually-hidden">Loading...</span>';
         // Make fetch request
         fetch('src/adduser.php', {
             method: 'POST',
@@ -18,12 +23,16 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => {
             // Handle successful response
             if (response.ok) {
-                return response.text();
+                return response.json();
             } else {
                 throw new Error('Error in response');
             }
         })
         .then(response => {
+            //hide spinner
+            document.getElementById("quickAddSpinner").className = "";
+            document.getElementById("quickAddSpinner").innerHTML = "";
+            //define feedback class
             if(response.success){
                 feedbackdiv.className = 'alert alert-success';
             }else{
@@ -40,19 +49,9 @@ document.addEventListener('DOMContentLoaded', function() {
             feedbackdiv.className = 'alert alert-danger';
             feedbackdiv.focus();
             feedbackdiv.innerHTML = 'An error occurred. Please try again.';
+            //hide spinner
+            document.getElementById("quickAddSpinner").className = "";
+            document.getElementById("quickAddSpinner").innerHTML = "";
         });
     });
 });
-
-fetch(document)
-  .then(() => {
-    feedbackdiv.innerHTML = "";
-    feedbackdiv.className = "";
-    document.getElementById("quickAddSpinner").className = "spinner-border";
-    document.getElementById("quickAddSpinner").innerHTML = '<span class="visually-hidden">Loading...</span>';
-  })
-  .catch(error => console.error('Error:', error))
-  .finally(() => {
-    document.getElementById("quickAddSpinner").className = "";
-    document.getElementById("quickAddSpinner").innerHTML = "";
-  });
