@@ -51,13 +51,13 @@ if(($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key']) &
             return;
         }
         //getting a list of sections
-        // if ($offerringEnroll['Code']==200){
-        //     $sections = doValenceRequest('GET','/d2l/api/lp/'. $config['LP_Version'] . '/'. $orgUnitId. '/sections/');
-        // }
-        // else{
-        //     echo json_encode(array("success"=> false, "message"=>"Unable to create course offerring enrollment"));
-        // return;
-        // }
+        if ($offerringEnroll['Code']==200){
+            $sections = doValenceRequest('GET','/d2l/api/lp/'. $config['LP_Version'] . '/'. $orgUnitId. '/sections/');
+        }
+        else{
+            echo json_encode(array("success"=> false, "message"=>"Unable to create course offerring enrollment"));
+        return;
+        }
         // //enrolling user into sections
         // if($sections['Code']==200){
         //     $postSectionData = array("UserId"=>$userId);
