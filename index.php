@@ -1,48 +1,29 @@
 <?php
-require_once("info.php");
+require_once("src/info.php");
+require_once ("ims-blti/blti.php");
 
-// Load up the LTI Support code
-require_once 'ims-blti/blti.php';
 
-//Initialize, all secrets as 'secret', do not set session, and do not redirect
-$context = new BLTI($lti_auth['secret'], false, false);
-
-$currentCookieParams = session_get_cookie_params();
-$cookie_domain= $_SERVER['HTTP_HOST'];
-if (PHP_VERSION_ID >= 70300) {
-session_set_cookie_params([
-    'lifetime' =>  $currentCookieParams["lifetime"],
-    'path' => '/BLE/QuickAdd/',
-    'domain' => $cookie_domain,
-    'secure' => "1",
-    'httponly' => "1",
-    'samesite' => 'None',
-]);
-} else {
-session_set_cookie_params(
-    $currentCookieParams["lifetime"],
-    '/BLE/QuickAdd/; samesite=None',
-    $cookie_domain,
-    "1",
-    "1"
-);
-}
-
+// Session will have partitioned parameter that required for Chrome like browsers
+// Other browsers that does not support partitioned cookie, will still work under Samesite=None
+// Safari will not keep third party cookies at all, so we will send session id as a hidden element in the form
 session_start();
-$_SESSION['toolKey'] = $context->info['oauth_consumer_key'];
-$_SESSION['OrgUnitId'] = $context->info['context_id'];
-$_SESSION['RoleId'] = $context->info['roles'];
-session_write_close();
+$id = session_id();
+header("Set-Cookie: PHPSESSID=$id; Secure; Path=$cookie_loation; HttpOnly; SameSite=None; Partitioned;");
 
-//Check the key is correct
-if($lti_auth['key'] == $context->info['oauth_consumer_key']){
-        //bring quickAdd HTML page
-        echo sprintf(file_get_contents("adduser.html"),session_id()); //Adds session_id() to a hidden form element to allow cross domain requests
-}
-else{
-        echo 'LTI credentials not valid. Please refresh the page and try again. If you continue to receive this message please contact <a href="mailto:'.$supportEmail.'?Subject=Quick Add Widget Issue" target="_top">'.$supportEmail.'</a>';
-}
+//All of the LTI Launch data gets passed through in $_REQUEST
+if(isset($_REQUEST['lti_message_type'])) {    //Is this an LTI Request?
+    //LTI tool declared with session data
+    $context = new BLTI($lti_auth['secret'], true, false);
 
+    if($context->complete) exit(); //True if redirect was done by BLTI class
+    if($context->valid) { //True if LTI request was verified
+        //main page
+        include 'src/adduser.html';
+    }
+}
+else { 
+    echo 'LTI credentials not valid. Please refresh the page and try again. If you continue to receive this message please contact <a href="mailto:'.$support_email.'?Subject=Quick Add Widget Issue" target="_top">'.$support_email.'</a>';
+}
 ?>
 
 
