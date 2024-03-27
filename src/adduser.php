@@ -36,7 +36,7 @@ $orgUnitId = $_SESSION['_basic_lti_context']['context_id'];
 
 if(isAllowedToAdd($ltiUserId, $orgUnitId)) echo "allowed"; else echo "not allowed";
 echo $_SESSION['_basic_lti_context']['oauth_consumer_key'];
-echo $ltiUserId;
+echo $toolKey;
 
 //Check the key is correct / wrap everything with LTI credentials
 if(($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $toolKey) && isAllowedToAdd($ltiUserId, $orgUnitId)){
