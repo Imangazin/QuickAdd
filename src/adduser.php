@@ -37,41 +37,42 @@ $orgUnitId = $_SESSION['_basic_lti_context']['context_id'];
 if(($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key']) && isAllowedToAdd($ltiUserId, $orgUnitId)){
     if (isset($_POST['username']) && isset($_POST['userrole'])) {
         $userName = trimUserName($_POST['username']);
-        //getting UserId
-        $userData = doValenceRequest('GET', '/d2l/api/lp/' . $config['LP_Version'] . '/users/?userName=' . $userName);
-        $userStatus = $userData['response']->Activation->IsActive;
-        //enrolling user into course offerring
-        if ($userData['Code']==200){
-            $userId = $userData['response']->UserId;
-            $postOfferingData = array("OrgUnitId"=>(int)$orgUnitId,"UserId"=>$userId,"RoleId"=>(int)$_POST[userrole]);
-            $offerringEnroll = doValenceRequest('POST', '/d2l/api/lp/'. $config['LP_Version'] .'/enrollments/', $postOfferingData);
-        }
-        else{
-            echo json_encode(array("success"=> false, "message"=>"No such user"));
-            return;
-        }
-        //getting a list of sections
-        if ($offerringEnroll['Code']==200){
-            $sections = doValenceRequest('GET','/d2l/api/lp/'. $config['LP_Version'] . '/'. $orgUnitId. '/sections/');
-        }
-        else{
-            echo json_encode(array("success"=> false, "message"=>"Unable to create course offerring enrollment"));
-        return;
-        }
-        //enrolling user into sections
-        if($sections['Code']==200){
-            $postSectionData = array("UserId"=>$userId);
-            foreach($sections['response'] as $s){
-                $sectionEnroll = doValenceRequest('POST','/d2l/api/lp/'. $config['LP_Version'] .'/'. $orgUnitId. '/sections/'. $s->SectionId. '/enrollments/', $postSectionData);
-            }
-        }
-        if ($userStatus){
-            $message = str_replace("OrgUnitId",str($orgUnitId),$successMessage);
-            echo json_encode(array("success"=> true, "message"=>$message));
-        }
-        else{
-            echo json_encode(array("success"=> true, "message"=>$inactiveUserMessage));
-        }
+        echo $userName;
+        // //getting UserId
+        // $userData = doValenceRequest('GET', '/d2l/api/lp/' . $config['LP_Version'] . '/users/?userName=' . $userName);
+        // $userStatus = $userData['response']->Activation->IsActive;
+        // //enrolling user into course offerring
+        // if ($userData['Code']==200){
+        //     $userId = $userData['response']->UserId;
+        //     $postOfferingData = array("OrgUnitId"=>(int)$orgUnitId,"UserId"=>$userId,"RoleId"=>(int)$_POST[userrole]);
+        //     $offerringEnroll = doValenceRequest('POST', '/d2l/api/lp/'. $config['LP_Version'] .'/enrollments/', $postOfferingData);
+        // }
+        // else{
+        //     echo json_encode(array("success"=> false, "message"=>"No such user"));
+        //     return;
+        // }
+        // //getting a list of sections
+        // if ($offerringEnroll['Code']==200){
+        //     $sections = doValenceRequest('GET','/d2l/api/lp/'. $config['LP_Version'] . '/'. $orgUnitId. '/sections/');
+        // }
+        // else{
+        //     echo json_encode(array("success"=> false, "message"=>"Unable to create course offerring enrollment"));
+        // return;
+        // }
+        // //enrolling user into sections
+        // if($sections['Code']==200){
+        //     $postSectionData = array("UserId"=>$userId);
+        //     foreach($sections['response'] as $s){
+        //         $sectionEnroll = doValenceRequest('POST','/d2l/api/lp/'. $config['LP_Version'] .'/'. $orgUnitId. '/sections/'. $s->SectionId. '/enrollments/', $postSectionData);
+        //     }
+        // }
+        // if ($userStatus){
+        //     $message = str_replace("OrgUnitId",str($orgUnitId),$successMessage);
+        //     echo json_encode(array("success"=> true, "message"=>$message));
+        // }
+        // else{
+        //     echo json_encode(array("success"=> true, "message"=>$inactiveUserMessage));
+        // }
     }
 }
 else {
