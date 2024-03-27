@@ -33,7 +33,7 @@ preg_match('/_(\d+)/', $_SESSION['_basic_lti_context']['user_id'], $matches);
 $ltiUserId = (bool) $matches ? $matches[1] : -1;
 $orgUnitId = $_SESSION['_basic_lti_context']['context_id'];
 
-if(isAllowedToAdd($ltiUserId)) echo "allowed"; else "not allowed";
+if(isAllowedToAdd($ltiUserId)) echo "allowed"; else echo "not allowed";
 echo $_SESSION['_basic_lti_context']['oauth_consumer_key'];
 echo $ltiUserId;
 
