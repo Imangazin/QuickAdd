@@ -58,13 +58,13 @@ if(($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key']) &
             echo json_encode(array("success"=> false, "message"=>"Unable to create course offerring enrollment"));
         return;
         }
-        // //enrolling user into sections
-        // if($sections['Code']==200){
-        //     $postSectionData = array("UserId"=>$userId);
-        //     foreach($sections['response'] as $s){
-        //         $sectionEnroll = doValenceRequest('POST','/d2l/api/lp/'. $config['LP_Version'] .'/'. $orgUnitId. '/sections/'. $s->SectionId. '/enrollments/', $postSectionData);
-        //     }
-        // }
+        //enrolling user into sections
+        if($sections['Code']==200){
+            $postSectionData = array("UserId"=>$userId);
+            foreach($sections['response'] as $s){
+                $sectionEnroll = doValenceRequest('POST','/d2l/api/lp/'. $config['LP_Version'] .'/'. $orgUnitId. '/sections/'. $s->SectionId. '/enrollments/', $postSectionData);
+            }
+        }
         // if ($userStatus){
         //     $message = str_replace("OrgUnitId",str($orgUnitId),$successMessage);
         //     echo json_encode(array("success"=> true, "message"=>$message));
