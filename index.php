@@ -18,7 +18,7 @@ if(isset($_REQUEST['lti_message_type'])) {    //Is this an LTI Request?
     if($context->complete) exit(); //True if redirect was done by BLTI class
     if($context->valid) { //True if LTI request was verified
         //main page
-        include 'src/adduser.html';
+        include 'src/home.php';
     }
 }
 else { 
