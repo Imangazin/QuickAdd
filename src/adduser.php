@@ -65,13 +65,13 @@ if(($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key']) &
                 $sectionEnroll = doValenceRequest('POST','/d2l/api/lp/'. $config['LP_Version'] .'/'. $orgUnitId. '/sections/'. $s->SectionId. '/enrollments/', $postSectionData);
             }
         }
-        // if ($userStatus){
-        //     $message = str_replace("OrgUnitId",str($orgUnitId),$successMessage);
-        //     echo json_encode(array("success"=> true, "message"=>$message));
-        // }
-        // else{
-        //     echo json_encode(array("success"=> true, "message"=>$inactiveUserMessage));
-        // }
+        if ($userStatus){
+            $message = str_replace("OrgUnitId",str($orgUnitId),$successMessage);
+            echo json_encode(array("success"=> true, "message"=>$message));
+        }
+        else{
+            echo json_encode(array("success"=> true, "message"=>$inactiveUserMessage));
+        }
     }
 }
 else {
