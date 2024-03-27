@@ -66,7 +66,8 @@ if(($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $toolKey) && isAllo
             }
         }
         if ($userStatus){
-            echo json_encode(array("success"=> true, "message"=>$successMessage));
+            $message = str_replace("OrgUnitId",str($orgUnitId),$successMessage);
+            echo json_encode(array("success"=> true, "message"=>$message));
         }
         else{
             echo json_encode(array("success"=> true, "message"=>$inactiveUserMessage));
@@ -77,5 +78,3 @@ else {
     echo json_encode(array("success"=> false, "message"=>"User has no permission to add user"));
 }
 ?>
-
-
