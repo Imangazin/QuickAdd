@@ -9,12 +9,10 @@ require_once ("ims-blti/blti.php");
 session_start();
 $id = session_id();
 header("Set-Cookie: PHPSESSID=$id; Secure; Path=$cookie_loation; HttpOnly; SameSite=None; Partitioned;");
-echo "outside lti";
 //All of the LTI Launch data gets passed through in $_REQUEST
 if(isset($_REQUEST['lti_message_type'])) {    //Is this an LTI Request?
     //LTI tool declared with session data
     $context = new BLTI($lti_auth['secret'], true, false);
-    echo "inside lti";
     if($context->complete) exit(); //True if redirect was done by BLTI class
     if($context->valid) { //True if LTI request was verified
         //main page
