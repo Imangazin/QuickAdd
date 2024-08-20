@@ -8,7 +8,7 @@ require_once ("ims-blti/blti.php");
 // Safari will not keep third party cookies at all, so we will send session id as a hidden element in the form
 session_start();
 $id = session_id();
-header("Set-Cookie: PHPSESSID=$id; Secure; Path=$cookie_loation; HttpOnly; SameSite=None; Partitioned;");
+header("Set-Cookie: PHPSESSID=$id; Secure; Path=$cookie_location; HttpOnly; SameSite=None; Partitioned;");
 //All of the LTI Launch data gets passed through in $_REQUEST
 if(isset($_REQUEST['lti_message_type'])) {    //Is this an LTI Request?
     //LTI tool declared with session data
