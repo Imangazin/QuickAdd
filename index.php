@@ -15,6 +15,11 @@ if(isset($_REQUEST['lti_message_type'])) {    //Is this an LTI Request?
     $context = new BLTI($lti_auth['secret'], true, false);
     if($context->complete) exit(); //True if redirect was done by BLTI class
     if($context->valid) { //True if LTI request was verified
+        //passing orgUnitId to the Form, since user can open multiple tabs 
+        //with different offerings, but will use the same session where the last opened 
+        //offering will override all, in result adding users in multiple tabs 
+        //will result adding them into one offering.
+        $orgUnitId = $context->info['context_id'];
         //main page
         include 'src/home.php';
     }

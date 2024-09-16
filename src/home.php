@@ -26,6 +26,7 @@
 <div class="container">
   <form method="post" id="quickAddForm" action="src/adduser.php">
     <input type="hidden" name="session_id" value="<?php echo $id; ?>"> 
+    <input type="hidden" name="orgUnitId" value="<?php echo $orgUnitId; ?>"> 
     <div class="mb-3">
       <label class="form-label" id="output"></label>
       <input type="text" class="form-control" id="username" required placeholder="Enter username" name="username">

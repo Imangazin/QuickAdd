@@ -31,10 +31,15 @@ session_start();
 
 preg_match('/_(\d+)/', $_SESSION['_basic_lti_context']['user_id'], $matches);
 $ltiUserId = (bool) $matches ? $matches[1] : -1;
-$orgUnitId = $_SESSION['_basic_lti_context']['context_id'];
 
 //Check the key is correct / wrap everything with LTI credentials
-if(($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key']) && isAllowedToAdd($ltiUserId, $orgUnitId)){
+if($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key'] && isset($_POST['orgUnitId'])){
+    $orgUnitId = $_POST['orgUnitId'];
+    if (!isAllowedToAdd($ltiUserId, $orgUnitId)){
+        echo json_encode(array("success"=> false, "message"=>"User has no permission to add user"));
+        exit;
+    }
+
     if (isset($_POST['username']) && isset($_POST['userrole'])) {
         $userName = trimUserName($_POST['username']);
         //getting UserId
@@ -48,7 +53,7 @@ if(($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key']) &
         }
         else{
             echo json_encode(array("success"=> false, "message"=>"No such user"));
-            return;
+            exit;
         }
         //getting a list of sections
         if ($offerringEnroll['Code']==200){
@@ -56,7 +61,7 @@ if(($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key']) &
         }
         else{
             echo json_encode(array("success"=> false, "message"=>"Unable to create course offerring enrollment"));
-        return;
+            exit;
         }
         //enrolling user into sections
         if($sections['Code']==200){
