@@ -20,6 +20,7 @@ function trimUserName($username){
 function isAllowedToAdd($userId, $orgUnitId){
     global $config, $roles;
     $isAllowed = doValenceRequest('GET','/d2l/api/lp/' . $config['LP_Version'] . '/enrollments/orgUnits/'.$orgUnitId.'/users/'.$userId);
+    echo var_dump($isAllowed);
     if (in_array($isAllowed['response']->RoleId, $roles)){
         return true;
     }
@@ -31,7 +32,7 @@ session_start();
 
 preg_match('/_(\d+)/', $_SESSION['_basic_lti_context']['user_id'], $matches);
 $ltiUserId = (bool) $matches ? $matches[1] : -1;
-echo $ltiUserId;
+
 
 
 //Check the key is correct / wrap everything with LTI credentials
