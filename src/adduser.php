@@ -31,7 +31,7 @@ session_start();
 
 preg_match('/_(\d+)/', $_SESSION['_basic_lti_context']['user_id'], $matches);
 $ltiUserId = (bool) $matches ? $matches[1] : -1;
-echo $ltiUserId;
+
 
 //Check the key is correct / wrap everything with LTI credentials
 if($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key'] && isset($_POST['orgUnitId'])){
