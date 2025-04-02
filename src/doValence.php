@@ -44,7 +44,7 @@ function doValenceRequest($verb, $route, $postFields = array()){
 
     // Do call
     $response = curl_exec($ch);
-
+    echo $response;
     $httpCode  = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     $contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
     $responseCode = $userContext->handleResult($response, $httpCode, $contentType);
