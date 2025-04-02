@@ -26,7 +26,7 @@ function doValenceRequest($verb, $route, $postFields = array()){
     // Create userContext
     $hostSpec = new D2LHostSpec($config['host'], $config['port'], $config['scheme']);
     $userContext = $authContext->createUserContextFromHostSpec($hostSpec, $config['userId'], $config['userKey']);
-
+    echo $userContext;
     // Create url for API call
     $uri = $userContext->createAuthenticatedUri($route, $verb);
 
@@ -44,7 +44,6 @@ function doValenceRequest($verb, $route, $postFields = array()){
 
     // Do call
     $response = curl_exec($ch);
-    echo "Response: ".$response;
     $httpCode  = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     $contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
     $responseCode = $userContext->handleResult($response, $httpCode, $contentType);
