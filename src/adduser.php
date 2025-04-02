@@ -20,6 +20,7 @@ function trimUserName($username){
 function isAllowedToAdd($userId, $orgUnitId){
     global $config, $roles;
     $isAllowed = doValenceRequest('GET','/d2l/api/lp/' . $config['LP_Version'] . '/enrollments/orgUnits/'.$orgUnitId.'/users/'.$userId);
+    echo '/d2l/api/lp/' . $config['LP_Version'] . '/enrollments/orgUnits/'.$orgUnitId.'/users/'.$userId;
     if (in_array($isAllowed['response']->RoleId, $roles)){
         return true;
     }
