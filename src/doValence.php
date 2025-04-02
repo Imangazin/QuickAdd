@@ -26,10 +26,9 @@ function doValenceRequest($verb, $route, $postFields = array()){
     // Create userContext
     $hostSpec = new D2LHostSpec($config['host'], $config['port'], $config['scheme']);
     $userContext = $authContext->createUserContextFromHostSpec($hostSpec, $config['userId'], $config['userKey']);
-    echo $userContext;
     // Create url for API call
     $uri = $userContext->createAuthenticatedUri($route, $verb);
-
+    echo $uri;
     // Setup cURL
     $ch = curl_init();
     $options = array(
