@@ -81,6 +81,6 @@ if($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key'] && 
     }
 }
 else {
-    echo json_encode(array("success"=> false, "message"=>"User has no permission to add user. Main problem ".$_SESSION['_basic_lti_context']['oauth_consumer_key'].$lti_auth['key']));
+    echo json_encode(array("success"=> false, "message"=>"User has no permission to add user. Main problem ");
 }
 ?>
