@@ -47,7 +47,7 @@ function doValenceRequest($verb, $route, $postFields = array()){
     $contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
     $responseCode = $userContext->handleResult($response, $httpCode, $contentType);
     curl_close($ch);
-
+    echo "HTTP Status Code: $httpCode";
     return(array('Code'=>$httpCode, 'response'=>json_decode($response)));
 }
 ?>
