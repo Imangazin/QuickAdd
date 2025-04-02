@@ -41,6 +41,18 @@ function doValenceRequest($verb, $route, $postFields = array()){
     );
     curl_setopt_array($ch, $options);
 
+    echo "Final URI: $uri\n";
+    echo "Host: " . $config['host'] . "\n";
+    echo "Port: " . $config['port'] . "\n";
+    echo "Scheme: " . $config['scheme'] . "\n";
+
+    curl_setopt($ch, CURLOPT_VERBOSE, true); // Outputs to STDERR by default
+    $response = curl_exec($ch);
+
+    if ($response === false) {
+        echo "cURL Error: " . curl_error($ch) . "\n";
+    }
+    
     // Do call
     $response = curl_exec($ch);
     $httpCode  = curl_getinfo($ch, CURLINFO_HTTP_CODE);
