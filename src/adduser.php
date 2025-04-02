@@ -36,7 +36,7 @@ $ltiUserId = (bool) $matches ? $matches[1] : -1;
 if($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key'] && isset($_POST['orgUnitId'])){
     $orgUnitId = $_POST['orgUnitId'];
     if (!isAllowedToAdd($ltiUserId, $orgUnitId)){
-        echo json_encode(array("success"=> false, "message"=>"User has no permission to add user"));
+        echo json_encode(array("success"=> false, "message"=>"User has no permission to add user. Isallowed".$_SESSION['_basic_lti_context']['oauth_consumer_key'].$lti_auth['key']));
         exit;
     }
 
@@ -80,6 +80,6 @@ if($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key'] && 
     }
 }
 else {
-    echo json_encode(array("success"=> false, "message"=>"User has no permission to add user"));
+    echo json_encode(array("success"=> false, "message"=>"User has no permission to add user. Main problem ".$_SESSION['_basic_lti_context']['oauth_consumer_key'].$lti_auth['key']));
 }
 ?>
