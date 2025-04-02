@@ -48,7 +48,7 @@ if($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key'] && 
         //enrolling user into course offerring
         if ($userData['Code']==200){
             $userId = $userData['response']->UserId;
-            $postOfferingData = array("OrgUnitId"=>(int)$orgUnitId,"UserId"=>$userId,"RoleId"=>(int)$_POST[userrole]);
+            $postOfferingData = array("OrgUnitId"=>(int)$orgUnitId,"UserId"=>$userId,"RoleId"=>(int)$_POST['userrole']);
             $offerringEnroll = doValenceRequest('POST', '/d2l/api/lp/'. $config['LP_Version'] .'/enrollments/', $postOfferingData);
         }
         else{
